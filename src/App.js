@@ -24,12 +24,29 @@ export default function App() { // Valores iniciais
 
   useEffect(() => {
     if (!map.current) return; // Espera o mapa ser inicializado.
+
+    // Adiciona os botões de interação
+    map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+
     map.current.on('move', () => { //Quando o usuário interage com o mapa, movendo-o, os novos valores são armazenados. 
       setLng(map.current.getCenter().lng.toFixed(4));
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
-  });
+
+    for (const feature of geojson.features) {
+      // create a HTML element for each feature
+      const marker = document.createElement('div');
+      marker.className = 'marker';
+
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinates).addTo(map.current);
+    };
+    return () => map.remove();
+  }, []);
+
+  useEffect(() => {
+  })
 
 
   const geojson = {
@@ -71,8 +88,6 @@ export default function App() { // Valores iniciais
 
   //   new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinate).addTo(map);
   // }
-
-
 
 
   return (
