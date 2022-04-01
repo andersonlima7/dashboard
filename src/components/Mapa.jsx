@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import Grafico from './Grafico';
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoidGhlZGV2bWFuIiwiYSI6ImNsMWVibGx6MjA2MHgzbHFra3RoMmwwbTYifQ.pOCEh7_GtXJqmA9-cTpagQ";
@@ -11,7 +10,7 @@ export default function App() { // Valores iniciais
     const map = useRef(null);
     const [lng, setLng] = useState(-43.8090);
     const [lat, setLat] = useState(-15.00017);
-    const [zoom, setZoom] = useState(4.02);
+    const [zoom, setZoom] = useState(3.75);
     const location = require('../data/location.json');
 
     useEffect(() => {  //The function passed to useEffect will run after the render is committed to the screen.
@@ -47,7 +46,12 @@ export default function App() { // Valores iniciais
                 console.log(feature.properties);
 
                 // make a marker for each feature and add to the map
-                new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinates).addTo(map.current);
+                new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinates).setPopup(
+                    new mapboxgl.Popup({ offset: 25 }) // add popups
+                        .setHTML(
+                            `<h3>${feature.properties.country}</h3><p>${feature.properties.responsible} ${feature.properties.network}</p>`
+                        )
+                ).addTo(map.current);
             }
         };
         return () => map.remove();

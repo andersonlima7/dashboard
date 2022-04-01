@@ -17,8 +17,17 @@ code {
   height: 100vh;
 }
 
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .sidebar {
-  background-color: rgba(35, 55, 75, 0.9);
+  background-color: #388CA6;
   color: #fff;
   padding: 6px 12px;
   font-family: monospace;
@@ -36,32 +45,48 @@ code {
   z-index: 1;
   bottom: 35px;
   right: 20px;
-  width: 400px;
-  height: 350px;
-  /* background-color: black; */
-  border: solid rgba(142, 37, 228, 0.541);
+  width: 100px;
+  height: 50px;
+  border: solid #388CA6;
   border-radius: 10px;
-  opacity: 60%;
-  /* padding-bottom: 3rem; */
-  color: #fff;
   transition: 1s;
 }
 
 .grafico:hover {
-  background-color: black;
-  opacity: 100%;
+  background-color: #000;
+  transition: 1s;
+  border: solid #1CBDAD;
+  width: 400px;
+  height: 350px;
+}
+
+.chart {
+  display: none;
   transition: 1s;
 }
 
-.grafico p {
-  color: #fff;
-  margin-left: 1.5rem;
-  padding-bottom: 0;
-  margin-bottom: 0;
+.grafico:hover .chart {
+  display: block;
+  transition: 1.5s;
 }
 
+.grafico p {
+  color: #388CA6;
+  padding-left: 10px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  transition: 1s;
+}
+
+.grafico:hover p {
+  font-weight: bold;
+  color: #1CBDAD;
+  transition: 1s;
+}
+
+
 .marker {
-  background-image: url('./imgs/icons8-location-96.png');
+  background-image: url('./imgs/icons8-location-96\ \(3\).png');
   background-size: cover;
   width: 15px;
   height: 15px;

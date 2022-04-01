@@ -6,10 +6,7 @@ import Grafico from './components/Grafico';
 export default props => (
 
   <div className='App'>
-    <div className='grafico'>
-      <p>Estatísticas</p>
-      <Grafico></Grafico>
-    </div>
+    <Grafico></Grafico>
     <Mapa></Mapa>
   </div>
 
