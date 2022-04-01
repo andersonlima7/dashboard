@@ -11,9 +11,10 @@ export default function App() { // Valores iniciais
   const [lng, setLng] = useState(-43.8090);
   const [lat, setLat] = useState(-15.00017);
   const [zoom, setZoom] = useState(4.02);
+  const location = require('./data/location.json');
 
   useEffect(() => {  //The function passed to useEffect will run after the render is committed to the screen.
-    if (map.current) return; // Se o mapa já foi inicializado, não há necessidade de fazer outro, em outras palavras, o mapa é inicializado apenas uma vez.
+    if (map.current) return; // Se o mapa já foi inicializado, não há necessidade de cria-lo novamente, em outras palavras, o mapa é inicializado apenas uma vez.
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/dark-v10',
@@ -21,6 +22,7 @@ export default function App() { // Valores iniciais
       zoom: zoom
     });
   });
+
 
   useEffect(() => {
     if (!map.current) return; // Espera o mapa ser inicializado.
@@ -34,60 +36,22 @@ export default function App() { // Valores iniciais
       setZoom(map.current.getZoom().toFixed(2));
     });
 
-    for (const feature of geojson.features) {
-      // create a HTML element for each feature
-      const marker = document.createElement('div');
-      marker.className = 'marker';
+    console.log(location);
+    for (const feature of location.features) {
+      // Cria uma div para cada marker;
+      if (feature.properties.responsible != null) {
 
-      // make a marker for each feature and add to the map
-      new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinates).addTo(map.current);
+        const marker = document.createElement('div');
+        marker.className = 'marker';
+        console.log(feature.properties);
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinates).addTo(map.current);
+      }
     };
     return () => map.remove();
   }, []);
 
-  useEffect(() => {
-  })
-
-
-  const geojson = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-77.032, 38.913]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: 'Washington, D.C.'
-        }
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-122.414, 37.776]
-        },
-        properties: {
-          title: 'Mapbox',
-          description: 'San Francisco, California'
-        }
-      }
-    ]
-  };
-
-
-  const markersJson = "https://dev-redes-ora.geodatin.com/api/station/projected/location";
-
-
-
-  // for (const feature of geojson.features) {
-  //   const marker = document.createElement('div');
-  //   marker.className = 'marker';
-
-  //   new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinate).addTo(map);
-  // }
 
 
   return (
