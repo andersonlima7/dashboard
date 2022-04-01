@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 code {
@@ -28,6 +29,35 @@ code {
   margin: 12px;
   border-radius: 4px;
   opacity: 80%;
+}
+
+.grafico {
+  position: absolute;
+  z-index: 1;
+  bottom: 35px;
+  right: 20px;
+  width: 400px;
+  height: 350px;
+  /* background-color: black; */
+  border: solid rgba(142, 37, 228, 0.541);
+  border-radius: 10px;
+  opacity: 60%;
+  /* padding-bottom: 3rem; */
+  color: #fff;
+  transition: 1s;
+}
+
+.grafico:hover {
+  background-color: black;
+  opacity: 100%;
+  transition: 1s;
+}
+
+.grafico p {
+  color: #fff;
+  margin-left: 1.5rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .marker {

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import Grafico from './components/Grafico';
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoidGhlZGV2bWFuIiwiYSI6ImNsMWVibGx6MjA2MHgzbHFra3RoMmwwbTYifQ.pOCEh7_GtXJqmA9-cTpagQ";
@@ -59,7 +60,9 @@ export default function App() { // Valores iniciais
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapContainer} className="map-container" />
+      <div className='grafico'><p>Estatísticas</p><Grafico></Grafico> </div>
+      <div ref={mapContainer} className="map-container">
+      </div>
     </div>
   );
 }
