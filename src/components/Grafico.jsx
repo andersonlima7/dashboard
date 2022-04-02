@@ -1,6 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 export default () => {
@@ -8,7 +7,7 @@ export default () => {
     // Dados
     const dados = require('./../data/year.json');
     let dados_formatados = [];
-    for (let i = 0; i < dados.x.length; i++) {
+    for (let i = 0; i < dados.x.length; i++) { // Transforma os dados do arquivo json em um formato legível para o gráfico.
         dados_formatados[i] = { Ano: dados.x[i].substring(0, 4), Valor: dados.y[i] }
     }
 

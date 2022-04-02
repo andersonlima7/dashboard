@@ -4,7 +4,6 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = "pk.eyJ1IjoidGhlZGV2bWFuIiwiYSI6ImNsMWVibGx6MjA2MHgzbHFra3RoMmwwbTYifQ.pOCEh7_GtXJqmA9-cTpagQ";
 
-
 export default function App() { // Valores iniciais
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -13,8 +12,8 @@ export default function App() { // Valores iniciais
     const [zoom, setZoom] = useState(3.75);
     const location = require('../data/location.json');
 
-    useEffect(() => {  //The function passed to useEffect will run after the render is committed to the screen.
-        if (map.current) return; // Se o mapa já foi inicializado, não há necessidade de cria-lo novamente, em outras palavras, o mapa é inicializado apenas uma vez.
+    useEffect(() => {
+        if (map.current) return; // o Mapa é inicializado apenas uma vez.
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/dark-v10',
@@ -27,8 +26,7 @@ export default function App() { // Valores iniciais
     useEffect(() => {
         if (!map.current) return; // Espera o mapa ser inicializado.
 
-        // Adiciona os botões de interação
-        map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+        map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-left'); // Adiciona os botões de interação
 
         map.current.on('move', () => { //Quando o usuário interage com o mapa, movendo-o, os novos valores são armazenados. 
             setLng(map.current.getCenter().lng.toFixed(4));
@@ -36,18 +34,12 @@ export default function App() { // Valores iniciais
             setZoom(map.current.getZoom().toFixed(2));
         });
 
-        console.log(location);
         for (const feature of location.features) {
-            // Cria uma div para cada marker;
-            if (feature.properties.responsible != null) {
-
+            if (feature.properties.responsible != null) { // Apenas marcadores que possuem algum valor em "responsible" serão adicionados.
                 const marker = document.createElement('div');
                 marker.className = 'marker';
-                console.log(feature.properties);
-
-                // make a marker for each feature and add to the map
                 new mapboxgl.Marker(marker).setLngLat(feature.geometry.coordinates).setPopup(
-                    new mapboxgl.Popup({ offset: 25 }) // add popups
+                    new mapboxgl.Popup({ offset: 25 }) // Adiciona op popups.
                         .setHTML(
                             `<h3>${feature.properties.country}</h3><p>${feature.properties.responsible} ${feature.properties.network}</p>`
                         )
@@ -56,7 +48,6 @@ export default function App() { // Valores iniciais
         };
         return () => map.remove();
     }, []);
-
 
 
     return (
